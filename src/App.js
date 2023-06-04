@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Messages from "./Messages";
 import "./App.css";
+import Input from "./Input";
 
 const randomName = () => {
   const adjectives = ["Madison", "Luna", "Grace", "Chloe", "Penelope", "Layla", "Riley", "Zoey", "Nora", "Lily", "Eleanor", "Hannah", "Lillian", "Addison", "Aubrey", "Ellie", "Stella", "Natalie", "Zoe", "Leah", "Hazel", "Violet", "Aurora"];
@@ -14,12 +15,19 @@ const randomColor = () => {
   return '#' + Math.floor(Math.random() * 0xFFFFFF).toString(16);
 }
 
-const App = () => {
+function App() {
   const [messages, setMessages] = useState([]);
   const [member, setMember] = useState({
     username: randomName(),
     color: randomColor(),
   });
+
+  function sendMessage(message) {
+    setMessages((prevMessages) => [...prevMessages]);
+    // console.log(message)
+
+  }
+
 
 
   return (
@@ -28,6 +36,7 @@ const App = () => {
         <h1>Chat app</h1>
       </div>
       <Messages messages={messages} currentMember={member} />
+      <Input sendMessage={sendMessage} />
     </div>
   );
 }
