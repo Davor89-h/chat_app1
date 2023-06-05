@@ -6,11 +6,11 @@
 }
 
 .App-header {
-  background-color: #262626;
+  background-color: #2277AA;
   overflow: visible;
   width: 100%;
   text-align: center;
-  color: white;
+  color: #219f9c;
 }
 
 .Messages-list {
@@ -63,13 +63,13 @@
   max-width: 400px;
   margin: 0;
   border-radius: 12px;
-  background-color: cornflowerblue;
-  color: white;
+  background-color: #C0E6F0;
+  color: #336296;
   display: inline-block;
 }
 
 .currentMember > .Message-content .text {
-  background-color: orangered;
+  background-color: #2093C3 ;
 }
 
 form {
@@ -84,16 +84,21 @@ input {
   padding: 5px;
   font-size: 16px;
   border-radius: 8px;
-  border: 1px solid orangered;
+  border: 1px solid #2277AA;
   flex-grow: 1;
 }
 
 button {
   padding: 5px 10px;
   font-size: 16px;
-  background-color: orangered;
+  background-color: #2277AA;
   color: white;
   border: none;
   border-radius: 8px;
   margin-left: 10px;
+}
+
+button:hover {
+  background-color: #219f9c;
+  color: #2f52a4;
 }

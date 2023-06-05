@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Messages from "./Messages";
 import "./App.css";
 import Input from "./Input";
@@ -9,11 +9,11 @@ const randomName = () => {
   const adjective = adjectives[Math.floor(Math.random() * adjectives.length)];
   const noun = nouns[Math.floor(Math.random() * nouns.length)];
   return adjective + "_" + noun;
-}
+};
 
 const randomColor = () => {
   return '#' + Math.floor(Math.random() * 0xFFFFFF).toString(16);
-}
+};
 
 function App() {
   const [messages, setMessages] = useState([]);
@@ -22,13 +22,37 @@ function App() {
     color: randomColor(),
   });
 
-  function sendMessage(message) {
-    setMessages((prevMessages) => [...prevMessages]);
-    // console.log(message)
+  useEffect(() => {
+    const drone = new window.Scaledrone("XHZrsSMiMyWJYHJB", {
+      data: member
+    });
 
-  }
+    drone.on('open', error => {
+      if (error) {
+        console.error(error);
+      } else {
+        const updatedMember = { ...member, id: drone.clientId };
+        setMember(updatedMember);
+      }
+    });
 
+    const room = drone.subscribe("observable-room");
+    room.on('data', (data, member) => {
+      const message = { member, text: data };
+      setMessages(prevMessages => [...prevMessages, message]);
+    });
 
+    return () => {
+      drone.close();
+    };
+  }, [member]);
+
+  const sendMessage = (message) => {
+    window.drone.publish({
+      room: "observable-room",
+      message,
+    });
+  };
 
   return (
     <div className="App">
@@ -42,3 +66,4 @@ function App() {
 }
 
 export default App;
+
